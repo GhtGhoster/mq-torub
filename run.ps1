@@ -3,8 +3,8 @@ echo `# <#`
 
 # Bash goes here (tested on Ubuntu)
 
-gnome-terminal -- basic-http-server .
-xdg-open http://localhost:4000
+GNOME_TERMINAL_SCREEN="" gnome-terminal -- basic-http-server .
+xdg-open http://localhost:4000 > /dev/null 2>&1
 
 exit
 #> > $null
