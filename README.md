@@ -1,43 +1,47 @@
-# Macroquad wasm-bindgen build template with support for GitHub Pages
+# Torub puzzle
+## Rules
+This puzzle was inspired by a puzzle featured on Czech TV version of the show "Survivor".
+It features a limited rule-set, which limits the originally arbitrary swapping of 2 nodes
+to shifting rows and columns of the puzzle matrix.
 
-This repository serves as a template for projects based on the Rust
-[`macroquad`](https://github.com/not-fl3/macroquad)
-crate, built with the
-[`wasm-bindgen`](https://github.com/rustwasm/wasm-bindgen)
-command line utility. Included are
-[`rand`](https://github.com/rust-random/rand),
-[`getrandom`](https://github.com/rust-random/getrandom),
-[`egui`](https://github.com/emilk/egui), and
-[`egui-macroquad`](https://github.com/optozorax/egui-macroquad)
-crates for future convenience.
-Its intention is making WASM building, WASM bindings generation,
-and readying the repository for GitHub Pages as painless as possible.
+One must scramble the puzzle until no row or column contains the same letter or color twice.
+(Color is replaced with numbers in higher size variations)
 
-(2 "_required_" `.js` files from `egui-macroquad` -> 
-[`quad-url`](https://github.com/optozorax/quad-url)
-omitted because nothing broke so far)
+An inverse version of this puzzle is planned, where the player starts with a "solved"
+configuration of the puzzle and must unscramble the puzzle to reach the initial state.
+This might help with visualization as well as provide a useful tool in search of a solution
+from both ends, similar to the way Rubik's cube is solved. The proposed algorithms,
+if they exist, are symmetrical, so either solution counts.
 
+## Proof
+I am yet to prove whether this puzzle has a solution or not, my current approach is to
+assemble a set of "algorithms" (not dissimilar to Rubik's cube algorithms),
+map their inputs and outputs, and then construct arbitrary combinations to see whether
+swapping 2 arbitrary nodes is possible.
 
-More interesting crates to look out for in the future:
-- [`quad-storage`](https://crates.io/crates/quad-storage)
-- [`quad-url`](https://crates.io/crates/quad-url)
+While swapping 2 arbitrary nodes might not be strictly required to solve the puzzle,
+it is a simple target to assses the completion of, and were it to be possible,
+any configuration is reachable, including the solution. That being said,
+even if there is no algorithm to swap 2 arbitrary nodes, the puzzle may still be solvable.
+Furthermore, were the swapping of 2 arbitrary nodes possible, find a solution to a random
+configuration of the puzzle would open up the replayability of the puzzle to near infinity.
 
-## Instructions and dependencies:
+It is also good to keep in mind that the theoretical realm of the puzzle is an infinitely
+repeating tiled plane, meaning an algorithm found for row or column of the puzzle should
+translate to any other row or column respectively.
 
-All scripts listed below are compatible with default Windows installation of
-PowerShell (v6+ not required) as well as bash for Linux (scripts are polyglot)
+Even if the puzzle isn't solvable in the current form, finding proof will shed light onto
+how to generate seemingly random scrambles that belong to the subset of scrambles that
+are solvable.
 
-### [`rename.ps1`](rename.ps1)
-This script changes the internal name of the project in the files
-[`src\main.rs`](src\main.rs),
-[`Cargo.toml`](Cargo.toml), and
-[`index.html`](index.html)
-to match the name of the repository, and allows `cargo` to work correctly.
+Current predicitons:
+- No arbitrary node swapping for even-sized matrices.
+- Solvability dependent on arbitrary node swapping.
 
-(This is only necessary to run once after a repository was first created with the
-[`mq-wbg-template`](https://github.com/GhtGhoster/mq-wbg-template) template.)
-
-(todo: auto-remove rename script and README.md section after readme.ps1)
+## Name
+It's a play on the word "torus" and the name "Rubik", because that's how I vizualize the
+puzzle in finite 3D space. That vizualization might not be entirely accurate, but it's
+good enough for picking a name.
 
 ### [`setup.ps1`](setup.ps1)
 This script installs `wasm-bindgen-cli` (version 0.2.84), `basic-http-server`
@@ -73,19 +77,13 @@ file in your browser so that the required resources load properly.)
 - https://gist.github.com/nobbele/0d932a993786ed081632254fb6b01e25
 - https://gist.github.com/olefasting/15ae263da4cf1ba308ce55c15c9b221b
 
-## License
+## License & Contribution
 
-Licensed under either of
-
-- Apache License, Version 2.0
-  ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
-- MIT license
-  ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
-
-at your option.
-
-## Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
-dual licensed as above, without any additional terms or conditions.
+I haven't figured out the licensing for this properly yet. The main point is this:
+This is to be open-source, freely accessible,
+but NOT to be used commercially by anyone other than me - the author.
+That's to say, on the off-chance this puzzle actually makes sense and takes off,
+I don't want to end it up like Tetris or the Rubik's cube.
+I want to make money off of it (greedy, I know) and not get scammed like Pajitnov did.
+I also don't want to limit the community were it to form, like TTC does.
+And oh god I'll be smad if this thing already exists..
